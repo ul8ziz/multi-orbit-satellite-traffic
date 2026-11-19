@@ -1,0 +1,20 @@
+/data
+/docs
+/отчет
+/.cursor
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Superseded outputs (kept locally only)
+outputs/_backup_zero_filled_forecast/
+outputs/reports/project_report_RU - Copy.docx
+outputs/reports/project_report_RU.1.docx
+outputs/reports/project_report_RU_updated.docx
+outputs/reports/project_report_RU_expanded.docx
+outputs/reports/project_report_RU_ctmc_fixed.docx
+outputs/reports/project_report_RU.docx
+outputs/reports/project_report_AR.docx
+outputs/reports/project_report.docx

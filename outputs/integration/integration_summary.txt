@@ -1,0 +1,19 @@
+Integration: Stage A traffic -> lambda scenarios -> Leontyeva CTMC (constant lambda per scenario)
+=============================================================================================
+cleaned_traffic_input: C:\Users\Ul8ziz\Downloads\луаи_project\data\processed\cleaned_traffic.parquet
+alpha (lambda_t = alpha * total_mb / 3600): 1.0
+lambda_mean (scenario mean_load): 1442726.595500146
+lambda_peak (scenario peak_load): 1838186.5936111112
+
+Base CTMC parameters (unchanged except lambda per scenario):
+  N=5 M=4 gamma=1.0 C_LEO=2
+  mu_LEO=3.0 mu_MEO=2.0
+
+Outputs:
+  scenario_metrics.csv: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\integration\scenario_metrics.csv
+  blocking_vs_scenario.png: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\integration\blocking_vs_scenario.png
+
+scenario_metrics table:
+ scenario  alpha       lambda   P_loss   P(n=N)  P(m=M)     E[n]  E[m]  util_LEO  util_MEO  N  M  gamma  C_LEO  mu_LEO  mu_MEO
+mean_load    1.0 1.442727e+06 0.999992 0.999992     1.0 4.999992   4.0       1.0  0.999997  5  4    1.0      2     3.0     2.0
+peak_load    1.0 1.838187e+06 0.999993 0.999993     1.0 4.999993   4.0       1.0  0.999998  5  4    1.0      2     3.0     2.0

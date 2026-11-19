@@ -1,0 +1,11 @@
+Stage A — preprocessing summary (chunked pipeline)
+==============================================
+input_path: C:\Users\Ul8ziz\Downloads\луаи_project\data\Applications_data_sample.csv
+raw_rows_pass2: 44009843
+cleaned_rows: 36862187
+unique_users (MASKED_MSISDN): 94871
+unique APP_CLASS labels (seen): 16
+date range (hourly aggregates): 2018-02-10 00:00:00 .. 2018-03-04 00:00:00
+hourly aggregate rows (date,hour,slice): 1143
+tukey_bounds: low=-423621.0 high=577386.0
+iqr_meta: {"n_used": 44009843, "method": "random_sample_n=8000000", "q1": 5382.0, "q3": 148383.0, "iqr": 143001.0}

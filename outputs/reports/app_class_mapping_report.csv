@@ -1,0 +1,17 @@
+canonical_APP_CLASS,slice_id
+db transactions,URLLC
+file systems,mMTC
+file transfer,eMBB
+games,URLLC
+instant messaging applications,URLLC
+legacy protocols,mMTC
+mail,eMBB
+music streaming,eMBB
+network operation,mMTC
+others,mMTC
+p2p applications,eMBB
+security,mMTC
+streaming applications,eMBB
+terminals,mMTC
+voip,URLLC
+web applications,eMBB

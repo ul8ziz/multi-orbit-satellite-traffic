@@ -1,0 +1,15 @@
+Stage A outputs (chunked)
+========================
+input: C:\Users\Ul8ziz\Downloads\луаи_project\data\Applications_data_sample.csv
+cleaned_traffic: C:\Users\Ul8ziz\Downloads\луаи_project\data\processed\cleaned_traffic.parquet
+hourly_slice_totals: C:\Users\Ul8ziz\Downloads\луаи_project\data\processed\hourly_slice_totals.parquet
+artifact1: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\tables\artifact1_slice_aggregated.csv
+app_class_mapping_report: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\reports\app_class_mapping_report.csv
+preprocessing_summary: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\reports\preprocessing_summary.txt
+user_profiles: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\tables\user_profiles.csv
+user_coordinates: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\tables\user_coordinates.csv
+demand_matrix_long: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\tables\demand_matrix_long.csv
+daily_profile: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\tables\daily_profile.csv
+burstiness_papr: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\tables\burstiness_papr.csv
+slice_descriptive_stats: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\tables\slice_descriptive_stats.csv
+slice_correlation_matrix: C:\Users\Ul8ziz\Downloads\луаи_project\outputs\tables\slice_correlation_matrix.csv
