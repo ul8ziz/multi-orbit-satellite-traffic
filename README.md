@@ -159,7 +159,7 @@ Outputs (`outputs/multi_orbit/`): `order_comparison.csv/.png`, `scenario_5_20.cs
 | 12 | `fig12_quasi_stationary.png/.csv` (α so that mean λ = 3.0; `--alpha` to override) | `daily_profile.csv` + CTMC |
 
 Data gap: the hourly series have no records from 2018-02-22 14:00 to 2018-03-01 15:00
-(170 of 551 hours; 381 hours are observed). See **Forecasting → Missing hours** below.
+(170 of 551 hours; 381 hours are observed). See **Forecasting → Missing hours** above.
 
 ## Project Layout
 
