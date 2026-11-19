@@ -16,7 +16,7 @@ Real mobile traffic dataset from a Portuguese operator (provided by Prof. Luis M
 | Granularity | 1 hour |
 | Columns | `START_HOUR`, `MASKED_MSISDN`, `APP_CLASS`, `UPLOAD`, `DOWNLOAD` |
 
-The raw dataset is not included in this repository. Scripts that read it expect `data/Applications_data_sample.csv`; the computed tables and figures in `outputs/` are committed, so the results can be reviewed without the data. The three-orbit model (`run_multi_orbit.py`) and the tests run without the dataset.
+The raw dataset is not included in this repository. Scripts that read it expect `data/Applications_data_sample.csv`; the computed tables and figures in `outputs/` are committed, so the results can be reviewed without the data. The tests run without the dataset.
 
 ## 3GPP Slice Mapping
 
@@ -114,31 +114,6 @@ Two scenarios per run: **mean-load** (`λ = mean(λ_t)`) and **peak-load** (`λ 
 
 Calibration grid search over `α, N, M, C_LEO, μ_LEO, μ_MEO, γ` to find parameter combinations yielding interpretable blocking and utilization levels.
 
-### Stage C — Three-orbit LEO/MEO/GEO extension (`src/markov/multi_orbit.py`)
-
-Extends the Leontyeva model with a third orbit (GEO) for 3GPP TR 22.887 use case 5.20
-(multi-orbit connectivity to a mobile base station relay). Two formulations:
-
-1. **Aggregated** — Leontyeva state `(n, m)` unchanged; K-segment service rate
-   `μ(n) = Σ_j min(max(0, n − C_1 − … − C_{j−1}), C_j)·μ_j`. For K = 2 it is identical to
-   Stage B (tested against the article's Table 6). It implicitly re-packs sessions onto the
-   faster orbit whenever a channel frees up.
-2. **Exact, multi-class** — state `(k_LEO, k_MEO, k_GEO, m_1, …, m_C)`: busy channels per
-   orbit plus one retrial orbit per traffic class. Each class has its own arrival rate and
-   orbit traversal order, so the model covers both single-class order comparison
-   (LEO→MEO→GEO vs MEO→LEO→GEO …) and the service-based routing of §5.20
-   (URLLC: LEO→MEO, eMBB: MEO→LEO→GEO, mMTC: GEO→MEO).
-
-Metrics per class: `P_block`, `P_loss`, `E[m]`, retrial time `W = E[m]/λ_acc` (Little),
-orbit shares of admitted sessions and mean round-trip propagation delay; per orbit: utilisation.
-
-With GEO present, the aggregated formula noticeably misstates the load split (default
-parameters, λ = 6: util_GEO 0.026 aggregated vs 0.154 exact; P_block 0.0124 vs 0.0175),
-so the exact model should be used for three orbits.
-
-Outputs (`outputs/multi_orbit/`): `order_comparison.csv/.png`, `scenario_5_20.csv/.png`,
-`aggregated_vs_exact.csv`. Orbit delays (30/130/550 ms RTT) are illustrative defaults.
-
 ### Journal article figures (`src/visualization/article_figures.py`)
 
 `python run_article_figures.py` regenerates Figures 1–12 and Table 3 of
@@ -173,15 +148,13 @@ project/
 │   ├── figures/                 # PNG plots
 │   ├── reports/                 # text summaries, DOCX reports
 │   ├── markov/                  # stationary distribution, metrics
-│   ├── multi_orbit/             # LEO/MEO/GEO order comparison, scenario 5.20
 │   ├── article_figures/         # journal article Fig. 1–12, Table 3
 │   └── integration/             # scenario metrics, calibration grid, plots
 ├── src/
 │   ├── preprocessing/           # chunked cleaning, loaders, dataset path
 │   ├── analysis/                # slice mapping, statistics, spatial, users
 │   ├── forecasting/             # SARIMAX, LSTM/MLP, timeseries
-│   ├── markov/                  # Leontyeva params, CTMC generator, stationary solver,
-│   │                            #   multi_orbit.py (LEO/MEO/GEO, multi-class)
+│   ├── markov/                  # Leontyeva params, CTMC generator, stationary solver
 │   ├── integration/             # lambda derivation, scenarios, calibration
 │   ├── visualization/           # stage A and forecast figures
 │   ├── metrics/                 # forecast accuracy helpers
@@ -193,7 +166,6 @@ project/
 ├── run_integration.py           # Integration entry point
 ├── run_pipeline.py              # Full pipeline (A → forecast → B → integration)
 ├── run_calibration.py           # Calibration grid search
-├── run_multi_orbit.py           # Three-orbit model entry point
 ├── run_article_figures.py       # Journal article Figures 1–12 + Table 3
 ├── build_final_report.py        # Academic DOCX report builder
 ├── requirements.txt
@@ -217,7 +189,6 @@ python run_stage_b.py           # Leontyeva CTMC with default parameters
 python run_integration.py       # λ from data → mean/peak CTMC scenarios
 python run_pipeline.py          # All stages sequentially + DOCX report
 python run_calibration.py       # Full α/capacity/service calibration grid
-python run_multi_orbit.py       # LEO/MEO/GEO: traversal orders + TR 22.887 §5.20 routing
 python run_article_figures.py    # Figures 1–12 + Table 3 of the journal article
 ```
 
@@ -227,4 +198,5 @@ python run_article_figures.py    # Figures 1–12 + Table 3 of the journal artic
 pytest tests/
 ```
 
-26 tests covering: missing-hour handling in forecasting (`tests/test_forecast_gaps.py`), article figures on synthetic data (`tests/test_article_figures.py`), package imports, slice mapping, Stage A pipeline, forecast metrics, integration scenarios, Leontyeva CTMC verification (`|πQ| < 10⁻⁶`, `P_loss ≤ P(n=N)`), and the three-orbit model (`tests/test_multi_orbit.py`: K = 2 equals Stage B and reproduces Table 6, exact = aggregated for one orbit, §5.20 routing).
+
+18 tests covering: missing-hour handling in forecasting (`tests/test_forecast_gaps.py`), article figures on synthetic data (`tests/test_article_figures.py`), package imports, slice mapping, Stage A pipeline, forecast metrics, integration scenarios, and Leontyeva CTMC verification (`|πQ| < 10⁻⁶`, `P_loss ≤ P(n=N)`).
